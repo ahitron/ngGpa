@@ -1,7 +1,9 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/auth/auth.service';
-import { User } from 'src/app/auth/user';
+
+import { AuthService } from '../auth/auth.service';
+import { User } from '../auth/user';
+import { DbService } from '../db/dbService';
 
 @Component({
   selector: 'app-header',
@@ -12,11 +14,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private authChangeSub: Subscription;
   user: User = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private dbService: DbService) {}
 
   ngOnInit(): void {
     this.authChangeSub = this.authService.authChange.subscribe((user) => {
       this.user = user;
+      if (user) {
+        this.dbService.fetchCourses();
+      } else {
+        this.dbService.clearData();
+      }
     });
   }
 

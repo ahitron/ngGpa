@@ -1,1 +1,4 @@
-<p>home works!</p>
+<div [hidden]="courses.length > 0">No courses</div>
+<div [hidden]="courses.length === 0">
+  <p *ngFor="let course of courses">{{ course.name }} {{ course.level }}</p>
+</div>

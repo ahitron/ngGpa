@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { MaterialModule } from './material.module';
 import { HeaderComponent } from './header/header.component';
 import { AuthService } from './auth/auth.service';
+import { DbService } from './db/dbService';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, HeaderComponent],
@@ -27,7 +28,7 @@ import { AuthService } from './auth/auth.service';
     MaterialModule,
     FlexLayoutModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, DbService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

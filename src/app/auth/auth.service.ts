@@ -7,6 +7,7 @@ import { User } from './user';
 @Injectable()
 export class AuthService {
   private authStateSub: Subscription;
+  private user: User;
   authChange = new Subject<User>();
 
   constructor(private afAuth: AngularFireAuth) {}
@@ -16,10 +17,12 @@ export class AuthService {
       if (user) {
         const { uid, email, displayName } = user;
         const appUser = { uid, email, displayName };
-        this.authChange.next(user);
+        this.user = appUser;
+        
       } else {
-        this.authChange.next(null);
+        this.user = null;
       }
+      this.authChange.next(this.user);
     });
   }
 
@@ -28,7 +31,7 @@ export class AuthService {
   }
 
   signIn() {
-    this.afAuth.signInWithPopup(new GoogleAuthProvider());
+    return this.afAuth.signInWithPopup(new GoogleAuthProvider());
     // .then((res) => {
     //   console.log('in signIn');
     //   console.log(res);
@@ -40,6 +43,10 @@ export class AuthService {
   }
 
   signOut() {
-    this.afAuth.signOut();
+    return this.afAuth.signOut();
+  }
+
+  getUser() {
+    return this.user;
   }
 }
