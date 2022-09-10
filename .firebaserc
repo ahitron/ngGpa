@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "gpacalc-f81c8": {
+      "hosting": {
+        "ngGpa": [
+          "gpacalc-f81c8"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "gpacalc-f81c8"
+  }
+}
